@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.concurrent.Semaphore;
 
 /**
  *
@@ -23,15 +24,23 @@ public class JavaTest {
     public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
         
         String temp = "C:\\Work\\input_csv.csv";
+        String temp2 = "C:\\Work\\output_csv.csv";
+        
+        Semaphore Sema = new Semaphore(1);
+        System.out.println(Sema.availablePermits());
         
         Process p = new Process();
-        DiskInputThread DI = new DiskInputThread(temp,p);
+        
+        DiskInputThread in = new DiskInputThread(temp,p);
         ProcessingThread Pro = new ProcessingThread(p);
-        DI.start();
+        DiskOutputThread out = new DiskOutputThread(temp2,p);
+        in.start();
         Pro.start();
+        out.start();
         
         
-    
+        
+        
     }
     
 }

@@ -6,6 +6,7 @@
 
 package javatest;
 
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,11 +15,26 @@ import java.util.logging.Logger;
  * @author samuel
  */
 public class Process {
-    private boolean state = false;
-    Person Person = new Person("hoas",11);
+    private int state = 0;
+    Person Person;
+    Semaphore primero = new Semaphore(0,true);
+    Semaphore segundo = new Semaphore(0,true);
+    Semaphore tercero = new Semaphore(1,true);
     
-    public synchronized void toProcess(Person readPerson){
-        while(state ==true){
+    public synchronized void toProcess(){
+     primero.release();
+    }
+    
+    public synchronized void toWrite(){
+     segundo.release();
+    }
+    
+    public synchronized void toRead(){
+     tercero.release();
+    }
+    
+   /* public synchronized void toProcess(Person readPerson){
+        while(state ==1){
             try {
                 System.out.println("Hola");
                 wait();
@@ -29,12 +45,12 @@ public class Process {
         
         this.Person= readPerson;   
         System.out.println("Cambie de estado");
-        state =true;
+        state =1;
         notifyAll();
     }
     
     public synchronized Person toWrite(){
-     
+        
         
         
         
@@ -42,7 +58,7 @@ public class Process {
     }
     
     public synchronized Person toRead(){
-        while(state == false){
+        while(state == 0){
             try{
                 System.out.println("A ESCRIBIR " + Person.toString());
                 wait();
@@ -51,15 +67,20 @@ public class Process {
             }
         }
         System.out.println("algo en to read");
-        state =false;
+        state =0;
         notifyAll();
         return Person;
     }
 
+    
+    */
     public Person getPerson() {
         return Person;
     }
 
+    public void setPerson(Person P){
+        this.Person= P;
+    }
     
     
     

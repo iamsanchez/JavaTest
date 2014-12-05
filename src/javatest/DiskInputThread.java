@@ -38,10 +38,13 @@ public class DiskInputThread extends Thread{
 
         br = new BufferedReader(new FileReader(file));
         while((line=br.readLine()) != null){
+            System.out.println("Sigo en 1a");
+            Process.tercero.acquire();
             String[] leido = line.split(",");
             System.out.println("Leo Primero " + leido[0] + " segundo " + leido[1]);
             Person readPerson = new Person(leido[0],Integer.parseInt(leido[1]));
-            Process.toProcess(readPerson);
+            Process.setPerson(readPerson);
+            Process.toProcess();
         }
         
         
@@ -49,9 +52,14 @@ public class DiskInputThread extends Thread{
             e.printStackTrace();
         } catch (IOException ex) {
             Logger.getLogger(DiskInputThread.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(DiskInputThread.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-        
+        System.out.println("Sigo en 1b");
+           Process.primero.drainPermits();
+           Process.segundo.drainPermits();
+           Process.tercero.drainPermits();
+        System.out.println("sigo en 1c");
         
     }
     
