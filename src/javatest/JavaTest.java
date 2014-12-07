@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package javatest;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -22,25 +20,22 @@ public class JavaTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
-        
-        String temp = "C:\\Work";
-        String temp2 = "C:\\Work2\\output_csv.csv";
-        
-        Semaphore Sema = new Semaphore(1);
-        System.out.println(Sema.availablePermits());
-        
+
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter the directory to listen from:  ");
+        String directory = in.nextLine();
+        System.out.println("Enter the path of the file to write in(.csv): ");
+        String outPath = in.nextLine();
         Process p = new Process();
-        
-        DiskInputThread in = new DiskInputThread(temp,p);
-        ProcessingThread Pro = new ProcessingThread(p);
-        DiskOutputThread out = new DiskOutputThread(temp2,p);
-        in.start();
-        Pro.start();
-        out.start();
-        
-        
-        
-        
+
+        DiskInputThread DIT = new DiskInputThread(directory, p);
+        ProcessingThread PT = new ProcessingThread(p);
+        DiskOutputThread DOT = new DiskOutputThread(outPath, p);
+        DIT.start();
+        PT.start();
+        DOT.start();
+
     }
-    
+
 }

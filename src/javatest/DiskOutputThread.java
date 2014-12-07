@@ -29,9 +29,9 @@ public class DiskOutputThread extends Thread {
     @Override
     public void run() {
         while (true) {
-                
+
             try {
-                Process.segundo.acquire();
+                Process.second.acquire();
             } catch (InterruptedException ex) {
                 Logger.getLogger(DiskOutputThread.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -39,7 +39,6 @@ public class DiskOutputThread extends Thread {
             PrintWriter printer = null;
             try {
                 printer = new PrintWriter(new BufferedWriter(new FileWriter(Path, true)));
-                System.out.println(Process.getPerson().getName() + "," + Process.getPerson().getAge() + "," + Process.getPerson().getAgeBand());
                 printer.println(Process.getPerson().getName() + "," + Process.getPerson().getAge() + "," + Process.getPerson().getAgeBand());
 
             } catch (IOException ex) {
@@ -50,6 +49,6 @@ public class DiskOutputThread extends Thread {
             }
 
             Process.toRead();
-        } 
+        }
     }
 }
