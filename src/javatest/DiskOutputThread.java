@@ -29,10 +29,9 @@ public class DiskOutputThread extends Thread {
     @Override
     public void run() {
         while (true) {
-
+                
             try {
                 Process.segundo.acquire();
-                System.out.println("Sigo en 3");
             } catch (InterruptedException ex) {
                 Logger.getLogger(DiskOutputThread.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -51,6 +50,6 @@ public class DiskOutputThread extends Thread {
             }
 
             Process.toRead();
-        }
+        } 
     }
 }

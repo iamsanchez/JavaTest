@@ -23,8 +23,8 @@ public class JavaTest {
      */
     public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
         
-        String temp = "C:\\Work\\input_csv.csv";
-        String temp2 = "C:\\Work\\output_csv.csv";
+        String temp = "C:\\Work";
+        String temp2 = "C:\\Work2\\output_csv.csv";
         
         Semaphore Sema = new Semaphore(1);
         System.out.println(Sema.availablePermits());

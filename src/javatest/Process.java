@@ -19,7 +19,7 @@ public class Process {
     Person Person;
     Semaphore primero = new Semaphore(0,true);
     Semaphore segundo = new Semaphore(0,true);
-    Semaphore tercero = new Semaphore(1,true);
+    Semaphore tercero = new Semaphore(0,true);
     
     public synchronized void toProcess(){
      primero.release();
